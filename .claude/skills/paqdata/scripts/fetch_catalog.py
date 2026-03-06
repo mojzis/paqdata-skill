@@ -12,6 +12,7 @@ Usage:
 
 import argparse
 import json
+import os
 import sys
 import urllib.request
 import urllib.error
@@ -179,7 +180,9 @@ def build_url(variable_key, period=None, granularity=None,
 
 def main():
     parser = argparse.ArgumentParser(description="DataPAQ variable catalog tool")
-    parser.add_argument("--output", "-o", default="datapaq_catalog.json",
+    default_output = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                  "data", "datapaq_catalog.json")
+    parser.add_argument("--output", "-o", default=default_output,
                         help="Output path for the catalog JSON")
     parser.add_argument("--search", "-s", help="Search for variables matching this query")
     parser.add_argument("--verbose", "-v", action="store_true",

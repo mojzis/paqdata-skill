@@ -7,51 +7,39 @@ description: >
   services, municipal finance — at the municipality (obec), ORP, district (okres), or
   region (kraj) level. Also triggers on mentions of DataPAQ, PAQ Research, Czech regional
   data, "mapa vzdělávání", or any request to show Czech data on a map. The API at
-  api.datapaq.cz provides 779 variables. This skill helps you pick the right variable
+  api.datapaq.cz provides 781 variables. This skill helps you pick the right variable
   keys and construct working URLs.
 ---
 
 # DataPAQ — Constructing Map URLs for Czech Regional Data
 
-DataPAQ (datapaq.cz) by PAQ Research visualizes 779 socioeconomic indicators across
+DataPAQ (datapaq.cz) by PAQ Research visualizes 781 socioeconomic indicators across
 Czech municipalities, districts, and regions. This skill helps you **find the right
 variables and build working URLs** that open specific data views on the map.
 
-## Step 1: Fetch the Variable Catalog
+## Step 1: Search the Variable Catalog
 
-Before constructing URLs, you need to know what variables exist. Run the bundled
-script to download the full catalog of 779 variables:
-
-```bash
-python /path/to/this/skill/scripts/fetch_catalog.py -o datapaq_catalog.json
-```
-
-This fetches all pages of `https://api.datapaq.cz/variables` and saves a searchable
-JSON index. Then search it:
+A pre-built catalog of all variables is bundled at `data/datapaq_catalog.json`
+(relative to this skill's directory). Use the bundled script to search it:
 
 ```bash
 # Search by topic
-python scripts/fetch_catalog.py --load datapaq_catalog.json --search "population density"
-python scripts/fetch_catalog.py --load datapaq_catalog.json --search "chudoba"
-python scripts/fetch_catalog.py --load datapaq_catalog.json --search "volby elections"
+python /path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "population density"
+python /path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "chudoba"
+python /path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "volby elections"
 
 # List all categories
-python scripts/fetch_catalog.py --load datapaq_catalog.json --list-categories
+python /path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --list-categories
 ```
 
-If you can't run the script, you can also curl the API directly:
+To refresh the catalog from the API (if variables have been added or changed):
+
 ```bash
-curl -s "https://api.datapaq.cz/variables" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-for v in data['results']:
-    grans = set()
-    for var in v['variants']:
-        grans.update(var['available_granularities'])
-    print(f\"{v['key']:50s} {v['name'][:60]:60s} [{','.join(sorted(grans))}]\")
-"
-# Paginate with ?page=2, ?page=3, etc. until 'next' is null
+python /path/to/this/skill/scripts/fetch_catalog.py
 ```
+
+This fetches all pages of `https://api.datapaq.cz/variables` and overwrites
+`data/datapaq_catalog.json`.
 
 ## Step 2: Construct the URL
 
@@ -175,7 +163,7 @@ Czech month names: leden, únor, březen, duben, květen, červen,
 
 Most variables default to `hodnoty` — you can usually omit `v1t`.
 
-## Reference: Common Variable Keys (Sample — ~50 of 779)
+## Reference: Common Variable Keys (Sample — ~50 of 781)
 
 ### Demographics
 | Key | Name | Granularities |
@@ -233,7 +221,7 @@ Most variables default to `hodnoty` — you can usually omit `v1t`.
 | `denni_sluzby` | Day service centres | obec → stat |
 | `chranene_bydleni` | Supported housing | obec → stat |
 
-**⚠ This is only ~50 of 779 variables.** Always run `fetch_catalog.py` or paginate
+**⚠ This is only ~50 of 781 variables.** Always run `fetch_catalog.py` or paginate
 through the API to find the exact variable you need. Topics not listed here include:
 crime, health, detailed party election results, school funding per pupil, commuting,
 age structure, detailed social benefits, and many more.
