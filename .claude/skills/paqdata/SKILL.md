@@ -73,18 +73,22 @@ https://datapaq.cz/?g={granularity}&v1={variable_key}&v1p={period}[&v2=...&v2p=.
 
 ### Worked Examples
 
-**Example 1: Two variables on a municipality map, filtered to Brno**
+**Example 1: Population density for a single municipality (obec)**
 ```
-https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&v2=vystehovali&v2p=2024&fc=582786
+https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&fc=554979
 ```
 - `g=obec` → municipality level
 - `v1=hustota_zalidneni` → population density
-- `v1p=2024` → year 2024
-- `v2=vystehovali` → out-migration
-- `v2p=2024` → year 2024
-- `fc=582786` → filter to Brno (look up codes in `data/area_codes.json`)
+- `fc=554979` → filter to obec Abertamy (6-digit code from `data/area_codes.json`)
 
-**Example 2: Poverty index across all ORP microregions**
+**Example 2: Poverty index filtered to ORP Holice**
+```
+https://datapaq.cz/?g=obec&v1=dest_chudoba&v1t=hodnoty&v1p=2025&fc=5303
+```
+- `g=obec` → municipality level
+- `fc=5303` → filter to ORP Holice (4-digit code from `data/area_codes.json`)
+
+**Example 3: Poverty index across all ORP microregions**
 ```
 https://datapaq.cz/?g=orp&v1=dest_chudoba&v1t=hodnoty&v1p=2025
 ```
@@ -134,11 +138,11 @@ classification system (CISOB codelist). A bundled lookup file is available at
 `data/area_codes.json` (relative to this skill's directory) containing all codes
 for obec (6,258), ORP (206), okres (77), and kraj (14).
 
-Examples:
-- `582786` — obec Brno
-- `542105` — obec Olomouc
+The code format determines the geographic level:
+- 6-digit → obec (e.g. `554979` = Abertamy)
+- 4-digit → ORP (e.g. `5303` = Holice)
 
-Multiple codes are dash-separated: `fc=582786-542105`.
+Multiple codes are dash-separated: `fc=554979-582786`.
 
 ## Reference: Period Key Patterns
 
@@ -242,11 +246,9 @@ url = build_url(
     variable_key="hustota_zalidneni",
     period="2024",
     granularity="obec",
-    variable2_key="vystehovali",
-    period2="2024",
-    filter_code="582786"
+    filter_code="5303"
 )
-# → https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&v2=vystehovali&v2p=2024&fc=582786
+# → https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&fc=5303
 ```
 
 ## Data Sources

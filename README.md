@@ -79,18 +79,19 @@ https://datapaq.cz/?g=orp&v1=dest_chudoba&v1t=hodnoty&v1p=2025
 
 This opens a choropleth map coloring all 206 Czech microregions by their poverty index score.
 
-### 2. Population density vs. out-migration, filtered to Brno
+### 2. Municipalities in ORP Holice with population density
 
-Compare two variables at the municipality level, filtered to a specific city:
+Filter to all municipalities within a specific ORP microregion:
 
 ```
-https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&v2=vystehovali&v2p=2024&fc=582786
+https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&fc=5303
 ```
 
 - `g=obec` — municipality-level granularity
 - `v1=hustota_zalidneni` — population density
-- `v2=vystehovali` — out-migration count
-- `fc=582786` — filter to Brno (codes are in `.claude/skills/paqdata/data/area_codes.json`)
+- `fc=5303` — filter to ORP Holice (4-digit = ORP code, 6-digit = obec code)
+
+Codes are in `.claude/skills/paqdata/data/area_codes.json`.
 
 ### 3. Education failure vs. poverty as a scatterplot
 
