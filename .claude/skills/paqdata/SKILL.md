@@ -24,18 +24,18 @@ A pre-built catalog of all variables is bundled at `data/datapaq_catalog.json`
 
 ```bash
 # Search by topic
-python /path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "population density"
-python /path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "chudoba"
-python /path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "volby elections"
+/path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "population density"
+/path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "chudoba"
+/path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --search "volby elections"
 
 # List all categories
-python /path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --list-categories
+/path/to/this/skill/scripts/fetch_catalog.py --load /path/to/this/skill/data/datapaq_catalog.json --list-categories
 ```
 
 To refresh the catalog from the API (if variables have been added or changed):
 
 ```bash
-python /path/to/this/skill/scripts/fetch_catalog.py
+/path/to/this/skill/scripts/fetch_catalog.py
 ```
 
 This fetches all pages of `https://api.datapaq.cz/variables` and overwrites
