@@ -139,13 +139,10 @@ classification system (CISOB codelist). A bundled lookup file is available at
 for obec (6,258), ORP (206), okres (77), and kraj (14).
 
 Code examples by level:
-- obec (6-digit): `fc=554979` (Abertamy)
-- okres (5-digit): `fc=40177` (Beroun)
-- ORP (4-digit): `fc=5303` (Holice)
-- kraj (4-digit): `fc=3107` (Kraj Vysočina)
-
-ORP and kraj codes are both 4-digit and can overlap (e.g. `3107` = ORP Milevsko
-or Kraj Vysočina). Use the `ft` parameter to disambiguate: `ft=kraj` or `ft=orp`.
+- obec: `fc=554979` (Abertamy) — works without `ft`
+- ORP: `fc=5303` (Holice) — works without `ft`
+- okres: `fc=40177&ft=okres` (Beroun) — requires `ft=okres`
+- kraj: `fc=3107&ft=kraj` (Kraj Vysočina) — requires `ft=kraj`
 
 Multiple codes are dash-separated: `fc=554979-582786`.
 
