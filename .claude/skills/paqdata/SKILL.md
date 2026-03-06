@@ -140,6 +140,7 @@ for obec (6,258), ORP (206), okres (77), and kraj (14).
 
 The code format determines the geographic level:
 - 6-digit → obec (e.g. `554979` = Abertamy)
+- 5-digit → okres (e.g. `40177` = Beroun)
 - 4-digit → ORP (e.g. `5303` = Holice)
 
 Multiple codes are dash-separated: `fc=554979-582786`.
