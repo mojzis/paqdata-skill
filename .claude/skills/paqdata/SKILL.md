@@ -73,16 +73,16 @@ https://datapaq.cz/?g={granularity}&v1={variable_key}&v1p={period}[&v2=...&v2p=.
 
 ### Worked Examples
 
-**Example 1: Two variables on a municipality map, filtered to one ORP area**
+**Example 1: Two variables on a municipality map, filtered to Brno**
 ```
-https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&v2=vystehovali&v2p=2024&fc=3202
+https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&v2=vystehovali&v2p=2024&fc=582786
 ```
 - `g=obec` → municipality level
 - `v1=hustota_zalidneni` → population density
 - `v1p=2024` → year 2024
 - `v2=vystehovali` → out-migration
 - `v2p=2024` → year 2024
-- `fc=3202` → filter to ORP code 3202 (Brno)
+- `fc=582786` → filter to Brno (look up codes in `data/area_codes.json`)
 
 **Example 2: Poverty index across all ORP microregions**
 ```
@@ -130,12 +130,15 @@ If a variable only has ORP-level data, don't use `g=obec`.
 ## Reference: Filter Codes (`fc`)
 
 Filter codes are **Czech administrative area numeric codes** from the ČSÚ
-classification system. Examples:
-- `3202` — ORP Brno
-- `542105` — a specific municipality
+classification system (CISOB codelist). A bundled lookup file is available at
+`data/area_codes.json` (relative to this skill's directory) containing all codes
+for obec (6,258), ORP (206), okres (77), and kraj (14).
 
-When using `fc` with `g=obec`, you typically filter to an ORP code to show all
-municipalities within that microregion. Multiple codes are dash-separated.
+Examples:
+- `582786` — obec Brno
+- `542105` — obec Olomouc
+
+Multiple codes are dash-separated: `fc=582786-542105`.
 
 ## Reference: Period Key Patterns
 
@@ -241,9 +244,9 @@ url = build_url(
     granularity="obec",
     variable2_key="vystehovali",
     period2="2024",
-    filter_code="3202"
+    filter_code="582786"
 )
-# → https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&v2=vystehovali&v2p=2024&fc=3202
+# → https://datapaq.cz/?g=obec&v1=hustota_zalidneni&v1p=2024&v2=vystehovali&v2p=2024&fc=582786
 ```
 
 ## Data Sources
